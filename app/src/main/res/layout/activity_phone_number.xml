@@ -40,7 +40,9 @@
         android:layout_marginTop="@dimen/dp_12"
         android:background="@drawable/rectangle_grey_border"
         android:fontFamily="@font/inter_700"
-        android:hint="@string/_91"
+        android:autofillHints="+91"
+        android:hint="+91"
+        android:textColorHint="@color/white"
         android:lineHeight="21.78dp"
         android:paddingStart="@dimen/dp_16"
         android:paddingTop="@dimen/dp_7"
@@ -49,6 +51,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_18"
+        android:maxLines="1"
         app:layout_constraintStart_toStartOf="@id/tv_enter_phone"
         app:layout_constraintTop_toBottomOf="@id/tv_enter_phone" />
 
@@ -59,7 +62,8 @@
         android:layout_marginStart="@dimen/dp_8"
         android:background="@drawable/rectangle_grey_border"
         android:fontFamily="@font/inter_700"
-        android:hint="000000000"
+        android:hint="0000000000"
+        android:textColorHint="@color/white"
         android:lineHeight="21.78dp"
         android:paddingStart="@dimen/dp_14"
         android:paddingTop="@dimen/dp_7"
@@ -69,11 +73,14 @@
         android:textColor="@color/black"
         android:textFontWeight="700"
         android:textSize="@dimen/sp_18"
+        android:inputType="number"
+        android:maxLength="10"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@id/et_country_code"
         app:layout_constraintStart_toEndOf="@id/et_country_code"
         app:layout_constraintTop_toTopOf="@id/et_country_code" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,5 +100,15 @@
         app:layout_constraintCircleRadius="@dimen/dp_20"
         app:layout_constraintStart_toStartOf="@id/et_country_code"
         app:layout_constraintTop_toBottomOf="@id/et_country_code" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

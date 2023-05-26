@@ -26,10 +26,12 @@ class NotesFragment : Fragment() {
 
         var token = arguments?.getString("token")
         if (token != null) {
+            binding.progress.visibility = View.VISIBLE
             phoneNumberViewModel.getNotes(token = token)
         }
 
         phoneNumberViewModel.notesSuccess.observe(viewLifecycleOwner) {data ->
+            binding.progress.visibility = View.GONE
             data
         }
 

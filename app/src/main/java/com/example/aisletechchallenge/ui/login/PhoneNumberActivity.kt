@@ -3,6 +3,7 @@ package com.example.aisletechchallenge.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.databinding.ActivityPhoneNumberBinding
@@ -21,11 +22,13 @@ class PhoneNumberActivity : AppCompatActivity() {
         phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
 
         phoneNumberViewModel.message.observe(this) {
+            binding.progress.visibility = View.GONE
             navigateToOtpScreen()
         }
 
         binding.btContinue.setOnClickListener {
             if (!binding.etPhoneNo.text.isNullOrEmpty()) {
+                binding.progress.visibility = View.VISIBLE
                 callVerifyPhoneNumberAPI(binding.etPhoneNo.text.toString())
             } else {
                 // show error msg
