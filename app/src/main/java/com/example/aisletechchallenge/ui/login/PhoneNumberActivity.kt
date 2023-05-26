@@ -2,21 +2,39 @@ package com.example.aisletechchallenge.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.databinding.ActivityPhoneNumberBinding
+import com.example.aisletechchallenge.model.UserCredReq
+import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
 
 class PhoneNumberActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPhoneNumberBinding
-
+    private lateinit var phoneNumberViewModel: PhoneNumberViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneNumberBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btContinue.setOnClickListener {
+        phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
+
+        phoneNumberViewModel.message.observe(this) {
             navigateToOtpScreen()
         }
+
+        binding.btContinue.setOnClickListener {
+            if (!binding.etPhoneNo.text.isNullOrEmpty()) {
+                callVerifyPhoneNumberAPI(binding.etPhoneNo.text.toString())
+            } else {
+                // show error msg
+            }
+        }
+    }
+    private fun callVerifyPhoneNumberAPI(number: String) {
+        var userCredReq = UserCredReq(number = number, otp = null)
+        phoneNumberViewModel.verifyPhoneNumber(userCredReq)
     }
 
     private fun navigateToOtpScreen() {

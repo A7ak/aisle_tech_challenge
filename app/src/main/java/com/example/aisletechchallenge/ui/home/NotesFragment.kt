@@ -7,29 +7,33 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.databinding.FragmentNotesBinding
+import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
 
 class NotesFragment : Fragment() {
 
     private var _binding: FragmentNotesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var phoneNumberViewModel: PhoneNumberViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
 
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        var token = arguments?.getString("token")
+        if (token != null) {
+            phoneNumberViewModel.getNotes(token = token)
         }
-        return root
+
+        phoneNumberViewModel.notesSuccess.observe(viewLifecycleOwner) {data ->
+            data
+        }
+
+        return binding.root
     }
 
     override fun onDestroyView() {
