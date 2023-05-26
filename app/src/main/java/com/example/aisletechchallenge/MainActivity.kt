@@ -1,6 +1,10 @@
 package com.example.aisletechchallenge
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -30,8 +34,28 @@ class MainActivity : AppCompatActivity() {
         navGraph.setStartDestination(R.id.navigation_notes)
         navController.setGraph(navGraph, bundle)
         navView.setupWithNavController(navController)
-
-
+        navView.setBadge(R.id.navigation_notes,"9")
+        navView.setBadge(R.id.navigation_dashboard,"50+")
 
     }
+
+    fun BottomNavigationView.setBadge(tabResId: Int, badgeValue: String) {
+        getOrCreateBadge(this, tabResId)?.let { badge ->
+                badge.text = "$badgeValue"
+                View.VISIBLE
+        }
+    }
+
+    private fun getOrCreateBadge(bottomBar: View, tabResId: Int): TextView? {
+        val parentView = bottomBar.findViewById<ViewGroup>(tabResId)
+        return parentView?.let {
+            var badge = parentView.findViewById<TextView>(R.id.badge)
+            if (badge == null) {
+                LayoutInflater.from(parentView.context).inflate(R.layout.badge, parentView, true)
+                badge = parentView.findViewById(R.id.badge)
+            }
+            badge
+        }
+    }
+
 }
