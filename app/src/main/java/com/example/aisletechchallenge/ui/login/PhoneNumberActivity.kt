@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.databinding.ActivityPhoneNumberBinding
@@ -27,11 +28,18 @@ class PhoneNumberActivity : AppCompatActivity() {
         }
 
         binding.btContinue.setOnClickListener {
-            if (!binding.etPhoneNo.text.isNullOrEmpty()) {
+            var phoneNumber :String = binding.etPhoneNo.text.toString()
+            var countryCode : String = binding.etCountryCode.text.toString()
+
+            if (!countryCode.isNullOrEmpty()) {
+                if (!phoneNumber.isNullOrEmpty()) {
                 binding.progress.visibility = View.VISIBLE
-                callVerifyPhoneNumberAPI(binding.etPhoneNo.text.toString())
+                callVerifyPhoneNumberAPI(countryCode+phoneNumber)
             } else {
-                // show error msg
+                showToast("please enter phone number")
+            }
+        } else {
+                showToast("please enter country code")
             }
         }
     }
@@ -40,8 +48,15 @@ class PhoneNumberActivity : AppCompatActivity() {
         phoneNumberViewModel.verifyPhoneNumber(userCredReq)
     }
 
+    private fun showToast(msg : String){
+        Toast.makeText(this, msg , Toast.LENGTH_LONG).show()
+    }
     private fun navigateToOtpScreen() {
         var intent = Intent(this@PhoneNumberActivity, OtpActivity::class.java)
+        intent.putExtra(
+            "number",
+            binding.etCountryCode.text.toString()+" "+ binding.etPhoneNo.text.toString()
+        )
         startActivity(intent)
     }
 }
