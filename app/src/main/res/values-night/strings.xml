@@ -2,4 +2,6 @@
 <resources>
     <string name="enter_your_nphone_number">Enter Your \nPhone Number</string>
     <string name="_91">+91</string>
+    <string name="enter_the_notp">Enter The \nOTP</string>
+    <string name="_0000">0000</string>
 </resources>
