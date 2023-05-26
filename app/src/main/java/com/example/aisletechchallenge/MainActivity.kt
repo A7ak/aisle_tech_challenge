@@ -24,25 +24,11 @@ class MainActivity : AppCompatActivity() {
         intent.extras?.getString("token")
         var bundle : Bundle = Bundle()
         bundle.putString("token", intent.extras?.getString("token"))
+
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-      //  navController.setGraph(R.navigation.mobile_navigation, bundle)
-
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_notes, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-      //  navView.setupWithNavController(navController)
-
-
-       // val navHostFragment =
-         //   supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-
         val navGraph = navController.navInflater.inflate(R.navigation.mobile_navigation)
         navGraph.setStartDestination(R.id.navigation_notes)
         navController.setGraph(navGraph, bundle)
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
 
