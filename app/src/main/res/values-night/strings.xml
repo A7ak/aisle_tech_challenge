@@ -6,4 +6,6 @@
     <string name="_0000">0000</string>
     <string name="please_enter_phone_number">please enter phone number</string>
     <string name="please_enter_country_code">please enter country code</string>
+    <string name="premium_members_can_nview_all_their_likes_at_once">Premium members can\nview all their likes at once</string>
+    <string name="teena">Teena</string>
 </resources>
