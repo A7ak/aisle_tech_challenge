@@ -1,4 +1,4 @@
-package com.example.aisletechchallenge.ui.home
+package com.example.aisletechchallenge.ui.notes.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

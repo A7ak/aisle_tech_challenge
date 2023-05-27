@@ -1,4 +1,4 @@
-package com.example.aisletechchallenge.ui.login
+package com.example.aisletechchallenge.ui.login.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.example.aisletechchallenge.databinding.ActivityPhoneNumberBinding
 import com.example.aisletechchallenge.model.UserCredReq
 import com.example.aisletechchallenge.network.builder.RetrofitBuilder
 import com.example.aisletechchallenge.repository.PhoneNumberRepository
+import com.example.aisletechchallenge.ui.login.MyViewModelFactory
 import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
 
 class PhoneNumberActivity : AppCompatActivity() {
