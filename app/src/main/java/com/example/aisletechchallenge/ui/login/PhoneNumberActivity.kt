@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.aisletechchallenge.R
 import com.example.aisletechchallenge.databinding.ActivityPhoneNumberBinding
 import com.example.aisletechchallenge.model.UserCredReq
 import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
@@ -24,7 +25,15 @@ class PhoneNumberActivity : AppCompatActivity() {
 
         phoneNumberViewModel.message.observe(this) {
             binding.progress.visibility = View.GONE
-            navigateToOtpScreen()
+            if (it.status) {
+                navigateToOtpScreen()
+            } else {
+                showToast(getString(R.string.phone_number_error))
+            }
+        }
+
+        phoneNumberViewModel.error.observe(this) {
+            showToast(it)
         }
 
         binding.btContinue.setOnClickListener {
@@ -36,10 +45,10 @@ class PhoneNumberActivity : AppCompatActivity() {
                 binding.progress.visibility = View.VISIBLE
                 callVerifyPhoneNumberAPI(countryCode+phoneNumber)
             } else {
-                showToast("please enter phone number")
+                showToast(getString(R.string.please_enter_phone_number))
             }
         } else {
-                showToast("please enter country code")
+                showToast(getString(R.string.please_enter_country_code))
             }
         }
     }

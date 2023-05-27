@@ -4,4 +4,6 @@
     <string name="_91">+91</string>
     <string name="enter_the_notp">Enter The \nOTP</string>
     <string name="_0000">0000</string>
+    <string name="please_enter_phone_number">please enter phone number</string>
+    <string name="please_enter_country_code">please enter country code</string>
 </resources>

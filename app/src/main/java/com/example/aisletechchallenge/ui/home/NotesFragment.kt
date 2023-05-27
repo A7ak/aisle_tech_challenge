@@ -36,6 +36,10 @@ class NotesFragment : Fragment() {
             showToast("notes data received")
         }
 
+        phoneNumberViewModel.error.observe(viewLifecycleOwner) {
+            showToast(it)
+        }
+
         return binding.root
     }
 

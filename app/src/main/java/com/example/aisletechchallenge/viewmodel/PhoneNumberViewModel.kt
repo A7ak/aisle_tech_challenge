@@ -24,18 +24,25 @@ class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
     private val _notesSuccess = MutableLiveData<NotesRes>()
     val notesSuccess: LiveData<NotesRes> get() = _notesSuccess
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
+
     fun verifyPhoneNumber(userCredReq: UserCredReq) {
         launch(Dispatchers.Main) {
             try {
-                val response = RetrofitBuilder.apiService.verifyPhoneNumber(userCredReq = userCredReq)
+                val response =
+                    RetrofitBuilder.apiService.verifyPhoneNumber(userCredReq = userCredReq)
 
                 if (response.isSuccessful && response != null) {
                     response.body()?.let {
                         _message.value = it
                     }
+                } else {
+                    _error.value = "Something went wrong"
                 }
             } catch (e: java.lang.Exception) {
-                e.message
+                _error.value = e.message
             }
         }
     }
@@ -49,9 +56,11 @@ class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
                     response.body()?.let {
                         _otpSuccess.value = it
                     }
+                } else {
+                    _error.value = "Something went wrong"
                 }
             } catch (e: java.lang.Exception) {
-                e.message
+                _error.value = e.message
             }
         }
     }
@@ -65,9 +74,11 @@ class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
                     response.body()?.let {
                         _notesSuccess.value = it
                     }
+                } else {
+                    _error.value = "Something went wrong"
                 }
             } catch (e: java.lang.Exception) {
-                e.message
+                _error.value = e.message
             }
         }
     }

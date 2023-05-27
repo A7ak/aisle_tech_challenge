@@ -43,6 +43,10 @@ class OtpActivity : AppCompatActivity() {
             }
         }
 
+        phoneNumberViewModel.error.observe(this) {
+            showToast(it)
+        }
+
         phoneNumberViewModel.otpSuccess.observe(this) { data ->
             binding.progress.visibility = View.GONE
             if (!data.token.isNullOrEmpty()) {
