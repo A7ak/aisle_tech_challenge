@@ -43,7 +43,10 @@ class OtpActivity : AppCompatActivity() {
             if (!binding.etOtp.text.isNullOrEmpty()) {
                 binding.progress.visibility = View.VISIBLE
                 var userCredReq =
-                    UserCredReq(number = "+919876543212", otp = binding.etOtp.text.toString())
+                    UserCredReq(
+                        number = binding.tvPhoneNo.text.toString().replace(" ", ""),
+                        otp = binding.etOtp.text.toString()
+                    )
                 phoneNumberViewModel.verifyOtp(userCredReq = userCredReq)
             } else {
                 showToast("please enter otp")
