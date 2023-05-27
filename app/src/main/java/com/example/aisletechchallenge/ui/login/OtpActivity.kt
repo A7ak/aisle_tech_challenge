@@ -10,6 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.MainActivity
 import com.example.aisletechchallenge.databinding.ActivityOtpBinding
 import com.example.aisletechchallenge.model.UserCredReq
+import com.example.aisletechchallenge.network.builder.RetrofitBuilder
+import com.example.aisletechchallenge.repository.PhoneNumberRepository
 import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
 
 class OtpActivity : AppCompatActivity() {
@@ -22,7 +24,12 @@ class OtpActivity : AppCompatActivity() {
         binding = ActivityOtpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
+        val retrofitService = RetrofitBuilder.apiService
+        val phoneNumberRepository = PhoneNumberRepository(retrofitService)
+        phoneNumberViewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(phoneNumberRepository)
+        )[PhoneNumberViewModel::class.java]
 
         binding.tvPhoneNo.text = intent.extras?.getString("number")
 

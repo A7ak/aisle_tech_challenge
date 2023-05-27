@@ -7,13 +7,13 @@ import com.example.aisletechchallenge.model.NotesRes
 import com.example.aisletechchallenge.model.OtpRes
 import com.example.aisletechchallenge.model.PhoneNumberRes
 import com.example.aisletechchallenge.model.UserCredReq
-import com.example.aisletechchallenge.network.builder.RetrofitBuilder
+import com.example.aisletechchallenge.repository.PhoneNumberRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
+class PhoneNumberViewModel(private val phoneNumberRepository: PhoneNumberRepository) : ViewModel(), CoroutineScope by MainScope() {
 
     private val _message = MutableLiveData<PhoneNumberRes>()
     val message: LiveData<PhoneNumberRes> get() = _message
@@ -32,7 +32,7 @@ class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
         launch(Dispatchers.Main) {
             try {
                 val response =
-                    RetrofitBuilder.apiService.verifyPhoneNumber(userCredReq = userCredReq)
+                    phoneNumberRepository.verifyPhoneNumber(userCredReq = userCredReq)
 
                 if (response.isSuccessful && response != null) {
                     response.body()?.let {
@@ -50,7 +50,7 @@ class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
     fun verifyOtp(userCredReq: UserCredReq) {
         launch(Dispatchers.Main) {
             try {
-                val response = RetrofitBuilder.apiService.verifyOtp(userCredReq = userCredReq)
+                val response = phoneNumberRepository.verifyOtp(userCredReq = userCredReq)
 
                 if (response.isSuccessful && response != null) {
                     response.body()?.let {
@@ -68,7 +68,7 @@ class PhoneNumberViewModel : ViewModel(), CoroutineScope by MainScope() {
     fun getNotes(token: String) {
         launch(Dispatchers.Main) {
             try {
-                val response = RetrofitBuilder.apiService.getNotes(token = token)
+                val response = phoneNumberRepository.getNotes(token = token)
 
                 if (response.isSuccessful && response != null) {
                     response.body()?.let {

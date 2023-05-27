@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.databinding.FragmentNotesBinding
+import com.example.aisletechchallenge.network.builder.RetrofitBuilder
+import com.example.aisletechchallenge.repository.PhoneNumberRepository
+import com.example.aisletechchallenge.ui.login.MyViewModelFactory
 import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
 
 class NotesFragment : Fragment() {
@@ -23,7 +26,13 @@ class NotesFragment : Fragment() {
     ): View {
 
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
-        phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
+
+        val retrofitService = RetrofitBuilder.apiService
+        val phoneNumberRepository = PhoneNumberRepository(retrofitService)
+        phoneNumberViewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(phoneNumberRepository)
+        )[PhoneNumberViewModel::class.java]
 
         var token = arguments?.getString("token")
         if (token != null) {

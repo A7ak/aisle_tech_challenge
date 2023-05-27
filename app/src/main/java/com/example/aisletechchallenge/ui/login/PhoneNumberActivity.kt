@@ -2,7 +2,6 @@ package com.example.aisletechchallenge.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.aisletechchallenge.R
 import com.example.aisletechchallenge.databinding.ActivityPhoneNumberBinding
 import com.example.aisletechchallenge.model.UserCredReq
+import com.example.aisletechchallenge.network.builder.RetrofitBuilder
+import com.example.aisletechchallenge.repository.PhoneNumberRepository
 import com.example.aisletechchallenge.viewmodel.PhoneNumberViewModel
 
 class PhoneNumberActivity : AppCompatActivity() {
@@ -21,7 +22,12 @@ class PhoneNumberActivity : AppCompatActivity() {
         binding = ActivityPhoneNumberBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        phoneNumberViewModel = ViewModelProvider(this)[PhoneNumberViewModel::class.java]
+        val retrofitService = RetrofitBuilder.apiService
+        val phoneNumberRepository = PhoneNumberRepository(retrofitService)
+        phoneNumberViewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(phoneNumberRepository)
+        )[PhoneNumberViewModel::class.java]
 
         phoneNumberViewModel.message.observe(this) {
             binding.progress.visibility = View.GONE
