@@ -51,6 +51,8 @@ class OtpActivity : AppCompatActivity() {
             binding.progress.visibility = View.GONE
             if (!data.token.isNullOrEmpty()) {
                 navigateToNotesScreen(data.token)
+            } else {
+                showToast("wrong otp")
             }
         }
     }
