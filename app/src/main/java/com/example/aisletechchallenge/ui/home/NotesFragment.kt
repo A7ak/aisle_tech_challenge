@@ -37,6 +37,7 @@ class NotesFragment : Fragment() {
         }
 
         phoneNumberViewModel.error.observe(viewLifecycleOwner) {
+            binding.progress.visibility = View.GONE
             showToast(it)
         }
 

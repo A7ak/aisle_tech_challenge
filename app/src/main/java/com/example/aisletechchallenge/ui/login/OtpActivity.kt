@@ -44,6 +44,7 @@ class OtpActivity : AppCompatActivity() {
         }
 
         phoneNumberViewModel.error.observe(this) {
+            binding.progress.visibility = View.GONE
             showToast(it)
         }
 

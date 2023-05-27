@@ -33,6 +33,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         }
 
         phoneNumberViewModel.error.observe(this) {
+            binding.progress.visibility = View.GONE
             showToast(it)
         }
 
