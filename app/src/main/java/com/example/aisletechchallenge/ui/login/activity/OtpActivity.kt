@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.aisletechchallenge.R
 import com.example.aisletechchallenge.ui.home.activity.MainActivity
 import com.example.aisletechchallenge.databinding.ActivityOtpBinding
 import com.example.aisletechchallenge.model.UserCredReq
@@ -50,7 +51,7 @@ class OtpActivity : AppCompatActivity() {
                     )
                 phoneNumberViewModel.verifyOtp(userCredReq = userCredReq)
             } else {
-                showToast("please enter otp")
+                showToast(getString(R.string.please_enter_otp))
             }
         }
 
@@ -64,7 +65,7 @@ class OtpActivity : AppCompatActivity() {
             if (!data.token.isNullOrEmpty()) {
                 navigateToNotesScreen(data.token)
             } else {
-                showToast("wrong otp")
+                showToast(getString(R.string.wrong_otp))
             }
         }
     }

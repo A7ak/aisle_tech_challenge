@@ -8,4 +8,6 @@
     <string name="please_enter_country_code">please enter country code</string>
     <string name="premium_members_can_nview_all_their_likes_at_once">Premium members can\nview all their likes at once</string>
     <string name="teena">Teena</string>
+    <string name="please_enter_otp">please enter otp</string>
+    <string name="wrong_otp">wrong otp</string>
 </resources>
